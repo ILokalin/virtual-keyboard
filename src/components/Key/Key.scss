@@ -1,0 +1,27 @@
+.key {
+  --key__size: 55px;
+  --key__color: #f0f0f0;
+  --key__background: #3c3c3c;
+
+  width: var(--key__size);
+  line-height: var(--key__size);
+  border-radius: 10px;
+  background-color: var(--key__background);
+  border: 1px solid black;
+  text-align: center;
+  color: var(--key__color);
+
+  &__name {
+    font-size: 18px;
+    padding: 0 5px;
+  }
+
+  &__up {
+    font-size: 0.7em;
+    vertical-align: super;
+  }
+
+  &--backspace {
+    width: 90px;
+  }
+}
