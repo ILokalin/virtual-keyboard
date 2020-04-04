@@ -1,0 +1,35 @@
+[
+  [
+    {"code": "Backquote", "eng": {"key": "`", "shiftKey": "~"}},
+    {"code": "Digit1", "eng": {"key": "1", "shiftKey": "!"}},
+    {"code": "Digit2", "eng": {"key": "2", "shiftKey": "@"}},
+    {"code": "Digit3", "eng": {"key": "3", "shiftKey": "#"}},
+    {"code": "Digit4", "eng": {"key": "4", "shiftKey": "$"}},
+    {"code": "Digit5", "eng": {"key": "5", "shiftKey": "%"}},
+    {"code": "Digit6", "eng": {"key": "6", "shiftKey": "^"}},
+    {"code": "Digit7", "eng": {"key": "7", "shiftKey": "&"}},
+    {"code": "Digit8", "eng": {"key": "8", "shiftKey": "*"}},
+    {"code": "Digit9", "eng": {"key": "9", "shiftKey": "("}},
+    {"code": "Digit0", "eng": {"key": "0", "shiftKey": ")"}},
+    {"code": "Minus", "eng": {"key": "-", "shiftKey": "_"}},
+    {"code": "Equal", "eng": {"key": "=", "shiftKey": "+"}},
+    {"code": "Backspace", "control": true, "eng": {"key": "Backspace"}}
+  ],[
+    {"code": "Tab", "control": true, "eng": {"key": "Tab"}},
+    {"code": "KeyQ", "eng": {"key": "q", "shiftKey": "Q"}},
+    {"code": "KeyW", "eng": {"key": "w", "shiftKey": "W"}},
+    {"code": "KeyE", "eng": {"key": "e", "shiftKey": "E"}},
+    {"code": "KeyR", "eng": {"key": "r", "shiftKey": "R"}},
+    {"code": "KeyT", "eng": {"key": "t", "shiftKey": "T"}},
+    {"code": "KeyY", "eng": {"key": "y", "shiftKey": "Y"}},
+    {"code": "KeyU", "eng": {"key": "u", "shiftKey": "U"}},
+    {"code": "KeyI", "eng": {"key": "i", "shiftKey": "I"}},
+    {"code": "KeyO", "eng": {"key": "o", "shiftKey": "O"}},
+    {"code": "KeyP", "eng": {"key": "p", "shiftKey": "P"}},
+    {"code": "BracketLeft", "eng": {"key": "[", "shiftKey": "{"}},
+    {"code": "BracketRigth", "eng": {"key": "]", "shiftKey": "}"}},
+    {"code": "Delete", "control": true, "eng": {"key": "Del"}}
+  ],[
+
+  ] 
+]
