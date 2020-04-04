@@ -62,6 +62,11 @@
     width: 120px;
   }
 
+  &--shiftleft &__name::first-letter {
+    font-size: 20px;
+    padding-right: 5px;
+  }
+
   &--controlleft {
     width: 70px;
   }
