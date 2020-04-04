@@ -3,25 +3,70 @@
   --key__color: #f0f0f0;
   --key__background: #3c3c3c;
 
-  width: var(--key__size);
-  line-height: var(--key__size);
-  border-radius: 10px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  border-radius: 14px;
   background-color: var(--key__background);
-  border: 1px solid black;
-  text-align: center;
+  cursor: pointer;
+  width: var(--key__size);
+  height: var(--key__size);
+  line-height: var(--key__size);
   color: var(--key__color);
 
+  &:first-child {
+    margin-left: 0;
+  }
+
   &__name {
-    font-size: 18px;
     padding: 0 5px;
+    font-size: 18px;
   }
 
   &__up {
-    font-size: 0.7em;
     vertical-align: super;
+    font-size: 0.7em;
+  }
+  
+  &--control &__name {
+    font-size: 16px;
+  }
+
+  &--shift &__name {
+    font-size: 0.7em;
+  }
+
+  &--shift &__up {
+    font-size: 18px;
   }
 
   &--backspace {
-    width: 90px;
+    width: 120px;
+  }
+
+  &--tab {
+    width: 60px;
+  }
+
+  &--capslock {
+    width: 100px;
+  }
+
+  &--enter {
+    width: 140px;
+  }
+
+  &--shiftleft {
+    width: 120px;
+  }
+
+  &--controlleft {
+    width: 70px;
+  }
+
+  &--space {
+    width: 400px;
   }
 }

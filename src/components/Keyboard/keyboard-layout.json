@@ -28,8 +28,46 @@
     {"code": "KeyP", "eng": {"key": "p", "shiftKey": "P"}},
     {"code": "BracketLeft", "eng": {"key": "[", "shiftKey": "{"}},
     {"code": "BracketRigth", "eng": {"key": "]", "shiftKey": "}"}},
+    {"code": "Backslash", "eng": {"key": "\\", "shiftKey": "|"}},
     {"code": "Delete", "control": true, "eng": {"key": "Del"}}
   ],[
-
-  ] 
+    {"code": "CapsLock", "control": true, "eng": {"key": "CapsLock"}},
+    {"code": "KeyA", "eng": {"key": "a", "shiftKey": "A"}},
+    {"code": "KeyS", "eng": {"key": "s", "shiftKey": "S"}},
+    {"code": "KeyD", "eng": {"key": "d", "shiftKey": "D"}},
+    {"code": "KeyF", "eng": {"key": "f", "shiftKey": "F"}},
+    {"code": "KeyG", "eng": {"key": "g", "shiftKey": "G"}},
+    {"code": "KeyH", "eng": {"key": "h", "shiftKey": "H"}},
+    {"code": "KeyJ", "eng": {"key": "j", "shiftKey": "J"}},
+    {"code": "KeyK", "eng": {"key": "k", "shiftKey": "K"}},
+    {"code": "KeyL", "eng": {"key": "l", "shiftKey": "L"}},
+    {"code": "Semicolon", "eng": {"key": ";", "shiftKey": ":"}},
+    {"code": "Quote", "eng": {"key": "'", "shiftKey": "\""}},
+    {"code": "Enter", "control": true, "eng": {"key": "Enter"}}
+  ],[
+    {"code": "ShiftLeft", "control": true, "eng": {"key": "&#8679;Shift"}},
+    {"code": "KeyZ", "eng": {"key": "z", "shiftKey": "Z"}},
+    {"code": "KeyX", "eng": {"key": "x", "shiftKey": "X"}},
+    {"code": "KeyC", "eng": {"key": "c", "shiftKey": "C"}},
+    {"code": "KeyV", "eng": {"key": "v", "shiftKey": "V"}},
+    {"code": "KeyB", "eng": {"key": "b", "shiftKey": "B"}},
+    {"code": "KeyN", "eng": {"key": "n", "shiftKey": "N"}},
+    {"code": "KeyM", "eng": {"key": "m", "shiftKey": "M"}},
+    {"code": "Comma", "eng": {"key": ",", "shiftKey": "<"}},
+    {"code": "Period", "eng": {"key": ".", "shiftKey": ">"}},
+    {"code": "Slash", "eng": {"key": "/", "shiftKey": "?"}},
+    {"code": "Quote", "eng": {"key": "'", "shiftKey": "\""}},
+    {"code": "ArrowUp", "control": true, "eng": {"key": "&uarr;"}},
+    {"code": "ShiftRight", "control": true, "eng": {"key": "&#8679;"}}
+  ],[
+    {"code": "ControlLeft", "control": true, "eng": {"key": "Ctrl"}},
+    {"code": "MetaLeft", "control": true, "eng": {"key": "Win"}},
+    {"code": "AltLeft", "control": true, "eng": {"key": "Alt"}},
+    {"code": "Space", "control": true, "eng": {"key": ""}},
+    {"code": "AltRight", "control": true, "eng": {"key": "Alt"}},
+    {"code": "ControlRight", "control": true, "eng": {"key": "Ctrl"}},
+    {"code": "ArrowLeft", "control": true, "eng": {"key": "&larr;"}},
+    {"code": "ArrowDown", "control": true, "eng": {"key": "&darr;"}},
+    {"code": "ArrowRight", "control": true, "eng": {"key": "&rarr;"}}
+  ]
 ]

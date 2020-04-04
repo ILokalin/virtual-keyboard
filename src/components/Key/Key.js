@@ -15,7 +15,7 @@ export default class {
     elementDomKey.classList.add('key');
     if (control) {
       elementDomKey.control = true;
-      elementDomKey.classList.add(`key--${eng.key.toLowerCase()}`);
+      elementDomKey.classList.add(`key--${code.toLowerCase()}`, 'key--control');
     }
 
     elementDomKey.eng = eng;
