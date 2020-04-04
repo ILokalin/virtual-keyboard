@@ -26,7 +26,8 @@
   }
 
   &__up {
-    vertical-align: super;
+    line-height: 20px;
+    transform: translateY(-9px);
     font-size: 0.7em;
   }
   
@@ -64,7 +65,7 @@
 
   &--shiftleft &__name::first-letter {
     font-size: 20px;
-    padding-right: 5px;
+    padding-right: 10px;
   }
 
   &--controlleft {

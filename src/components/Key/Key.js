@@ -5,12 +5,17 @@ export default class {
   }
 
   createKey(keyObject, lang) {
-    const {code, control = false, eng = {}, ru = {}} = keyObject;
+    const {code, symbol = false, ruAll = false, control = false, eng = {}, ru = {}} = keyObject;
     const layoutKey = keyObject[lang];
 
     let elementDomKey = document.createElement('div');
-    elementDomKey.innerHTML = `<span class="key__name">${layoutKey.key}</span>`
-    elementDomKey.innerHTML += `<span class="key__up">${!control ? layoutKey.shiftKey : ''}</span>`;
+    if (symbol || ruAll) {
+      elementDomKey.innerHTML = `<span class="key__name">${layoutKey.shiftKey}</span>`
+      elementDomKey.innerHTML += `<span class="key__up">${!control ? ru.shiftKey : ''}</span>`;
+    } else {
+      elementDomKey.innerHTML = `<span class="key__name">${layoutKey.key}</span>`
+      elementDomKey.innerHTML += `<span class="key__up">${!control ? layoutKey.shiftKey : ''}</span>`;
+    }
 
     elementDomKey.classList.add('key');
     if (control) {

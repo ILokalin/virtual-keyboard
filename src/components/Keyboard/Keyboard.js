@@ -3,7 +3,6 @@ const KEYBOARD_LAYOUT = require('./keyboard-layout.json');
 
 export default class {
   constructor () {
-    debugger
     this.keyboard = document.createElement('div');
     this.keyboard.classList.add('keyboard');
 
