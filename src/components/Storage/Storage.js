@@ -1,6 +1,6 @@
 export default class {
-  saveLanguageHistory () {
-    localStorage.setItem('virtualKeyboardLanguage', 'eng');
+  saveLanguageHistory (language) {
+    localStorage.setItem('virtualKeyboardLanguage', language);
   }
 
   loadLanguageHistory () {
@@ -8,7 +8,7 @@ export default class {
 
     if (!response) {
       response = 'eng';
-      this.saveLanguageHistory();
+      this.saveLanguageHistory(response);
     }
 
     return response;
