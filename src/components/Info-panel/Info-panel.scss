@@ -1,9 +1,9 @@
 .panel {
-  width: 100%;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
+  justify-content: flex-start;
   padding-left: 10px;
+  width: 100%;
 
   &__caps {
     padding-right: 15px;
@@ -11,15 +11,20 @@
 
   &__caps-led {
     display: inline-block;
-    width: 15px;
-    height: 15px;
     margin: 0 5px;
-    vertical-align: middle;
     border-radius: 50%;
     background-color: lightgray;
+    width: 15px;
+    height: 15px;
+    vertical-align: middle;
 
     &--active {
       background-color: #f0c760;
     }
+  }
+
+  &__lang-led {
+    margin: 0 5px;
+    color: #f0c760; 
   }
 }
