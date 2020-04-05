@@ -1,7 +1,37 @@
 export default class {
-  constructor () {
-    console.log('i am ok')
+  constructor (onClickKey) {
+    this.onClickKey = onClickKey;
     this.keyList = [];
+
+    this.handleKey = this.handleKey.bind(this);
+    this.press = this.press.bind(this);
+    this.unPress = this.unPress.bind(this);
+  }
+
+  press(code) {
+    const key = this.keyList.find(elemnt => elemnt.code === code);
+
+    if (key) {
+      key.classList.add('key--pressed');
+    }
+  }
+
+  unPress(code) {
+    const key = this.keyList.find(elemnt => elemnt.code === code);
+
+    if (key) {
+      key.classList.remove('key--pressed');
+    }
+  }
+
+  handleKey(event) {
+    const target = event.target,
+          targetKey = target.closest('.key');
+
+    if (targetKey) {
+      const {code, eng, ru} = targetKey;
+      this.onClickKey({code, eng, ru});
+    }
   }
 
   createKey(keyObject, lang) {
@@ -25,6 +55,9 @@ export default class {
 
     elementDomKey.eng = eng;
     elementDomKey.ru = ru;
+    elementDomKey.code = code;
+
+    elementDomKey.addEventListener('click', this.handleKey)
 
     this.keyList.push(elementDomKey);
     return elementDomKey;

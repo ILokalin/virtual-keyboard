@@ -6,22 +6,47 @@ export default class {
     this.keyboard = document.createElement('div');
     this.keyboard.classList.add('keyboard');
 
-    const key = new Key();
+    this.onClickKey = this.onClickKey.bind(this);
+    this.keyDownControl = this.keyDownControl.bind(this);
+    this.keyUpControl = this.keyUpControl.bind(this);
+
+    this.key = new Key(this.onClickKey);
 
     KEYBOARD_LAYOUT.forEach(keyboardLine => {
       const line = document.createElement('div');
       line.classList.add('keyboard__line');
 
       keyboardLine.forEach(keyObject => {
-        line.append(key.createKey(keyObject, 'eng'));
+        line.append(this.key.createKey(keyObject, 'eng'));
       })
 
       this.keyboard.append(line);
     })
+
+    document.addEventListener('keyup', this.keyUpControl);
+    document.addEventListener('keydown', this.keyDownControl);
+    document.addEventListener('blur', event => {
+      debugger
+    })
+  }
+
+  onClickKey(pressObject) {
+    const {code, ru, eng} = pressObject;
+    console.log(code);
   }
 
   insert(parent) {
     parent.append(this.keyboard);
+  }
+
+  keyDownControl(event) {
+    console.log('mama down', event.code)
+    this.key.press(event.code);
+  }
+
+  keyUpControl(event) {
+    console.log('mama up', event.code)
+    this.key.unPress(event.code);
   }
 }
 
