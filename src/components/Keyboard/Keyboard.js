@@ -5,6 +5,16 @@ export default class {
   constructor (propsObject) {
     this.propsObject = propsObject;
 
+    this.state = {
+      language: propsObject.lang,
+      capsLock: false,
+      shift: false,
+      alt: false,
+      control: false
+    }
+
+    this.propsObject.infoPanelLed(this.state.capsLock, this.state.language);
+
     this.keyboard = document.createElement('div');
     this.keyboard.classList.add('keyboard');
 
@@ -34,8 +44,14 @@ export default class {
     parent.append(this.keyboard);
   }
 
+  indicateToPanel() {
+    this.propsObject.infoPanelLed(this.state.capsLock, this.state.language);
+  }
+
   keyDownControl(event) {
     console.log('mama down', event.code)
+
+
 
     if (!event.isTrusted) {
       let pressedKeyObject = KEYBOARD_LAYOUT.flat().find(item => item.code === event.code);
