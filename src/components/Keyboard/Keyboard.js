@@ -6,11 +6,10 @@ export default class {
     this.keyboard = document.createElement('div');
     this.keyboard.classList.add('keyboard');
 
-    this.onClickKey = this.onClickKey.bind(this);
     this.keyDownControl = this.keyDownControl.bind(this);
     this.keyUpControl = this.keyUpControl.bind(this);
 
-    this.key = new Key(this.onClickKey);
+    this.key = new Key();
 
     KEYBOARD_LAYOUT.forEach(keyboardLine => {
       const line = document.createElement('div');
@@ -30,10 +29,10 @@ export default class {
     })
   }
 
-  onClickKey(pressObject) {
-    const {code, ru, eng} = pressObject;
-    console.log(code);
-  }
+  // onClickKey(pressObject) {
+  //   const {code, ru, eng} = pressObject;
+  //   console.log(code);
+  // }
 
   insert(parent) {
     parent.append(this.keyboard);

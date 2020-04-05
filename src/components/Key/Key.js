@@ -1,6 +1,5 @@
 export default class {
-  constructor (onClickKey) {
-    this.onClickKey = onClickKey;
+  constructor () {
     this.keyList = [];
 
     this.handleKey = this.handleKey.bind(this);
@@ -27,10 +26,17 @@ export default class {
   handleKey(event) {
     const target = event.target,
           targetKey = target.closest('.key');
-
+    
     if (targetKey) {
-      const {code, eng, ru} = targetKey;
-      this.onClickKey({code, eng, ru});
+      const pressedKeyOptions = {
+         bubbles: true,
+         code: targetKey.code,
+      }
+      const myDownEvent = new KeyboardEvent('keydown', pressedKeyOptions);
+      document.dispatchEvent(myDownEvent);
+
+      const myUpEvent = new KeyboardEvent('keyup', pressedKeyOptions);
+      document.dispatchEvent(myUpEvent);
     }
   }
 
@@ -57,7 +63,7 @@ export default class {
     elementDomKey.ru = ru;
     elementDomKey.code = code;
 
-    elementDomKey.addEventListener('click', this.handleKey)
+    elementDomKey.addEventListener('mousedown', this.handleKey)
 
     this.keyList.push(elementDomKey);
     return elementDomKey;
