@@ -16,7 +16,7 @@ export default class {
     parent.append(this.infoPanel);
   }
 
-  led({isCapsLock, language}) {
+  led(isCapsLock, language) {
     const capsLockLed = this.infoPanel.querySelector('.panel__caps-led');
     const languageLed = this.infoPanel.querySelector('.panel__lang-led');
 
