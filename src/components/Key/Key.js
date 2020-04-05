@@ -1,5 +1,6 @@
 export default class {
-  constructor () {
+  constructor (propsObject) {
+    this.propsObject = propsObject;
     this.keyList = [];
 
     this.handleKey = this.handleKey.bind(this);
@@ -31,12 +32,15 @@ export default class {
       const pressedKeyOptions = {
          bubbles: true,
          code: targetKey.code,
+         key: targetKey.eng.key
       }
       const myDownEvent = new KeyboardEvent('keydown', pressedKeyOptions);
       document.dispatchEvent(myDownEvent);
 
-      const myUpEvent = new KeyboardEvent('keyup', pressedKeyOptions);
-      document.dispatchEvent(myUpEvent);
+      setTimeout(() => {this.propsObject.endEventKey()})
+
+      // const myUpEvent = new KeyboardEvent('keyup', pressedKeyOptions);
+      // document.dispatchEvent(myUpEvent);
     }
   }
 

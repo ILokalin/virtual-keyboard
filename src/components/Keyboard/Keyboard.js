@@ -2,14 +2,18 @@ import Key from 'Components/Key';
 const KEYBOARD_LAYOUT = require('./keyboard-layout.json');
 
 export default class {
-  constructor () {
+  constructor (propsObject) {
+    this.propsObject = propsObject;
+
     this.keyboard = document.createElement('div');
     this.keyboard.classList.add('keyboard');
 
     this.keyDownControl = this.keyDownControl.bind(this);
     this.keyUpControl = this.keyUpControl.bind(this);
 
-    this.key = new Key();
+    this.key = new Key({
+      endEventKey: propsObject.focusToDispaly
+      });
 
     KEYBOARD_LAYOUT.forEach(keyboardLine => {
       const line = document.createElement('div');
@@ -24,15 +28,7 @@ export default class {
 
     document.addEventListener('keyup', this.keyUpControl);
     document.addEventListener('keydown', this.keyDownControl);
-    document.addEventListener('blur', event => {
-      debugger
-    })
   }
-
-  // onClickKey(pressObject) {
-  //   const {code, ru, eng} = pressObject;
-  //   console.log(code);
-  // }
 
   insert(parent) {
     parent.append(this.keyboard);
@@ -40,7 +36,17 @@ export default class {
 
   keyDownControl(event) {
     console.log('mama down', event.code)
-    this.key.press(event.code);
+
+    if (!event.isTrusted) {
+      let pressedKeyObject = KEYBOARD_LAYOUT.flat().find(item => item.code === event.code);
+
+      if (pressedKeyObject) {
+        pressedKeyObject.lang = 'eng';
+        this.propsObject.displayOutput(pressedKeyObject);
+      }
+    } else {
+      this.key.press(event.code);
+    }
   }
 
   keyUpControl(event) {
