@@ -9,6 +9,7 @@
   justify-content: center;
   margin-left: 10px;
   border-radius: 14px;
+  box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.75);
   background-color: var(--key__background);
   cursor: pointer;
   width: var(--key__size);
@@ -20,15 +21,29 @@
     margin-left: 0;
   }
 
+  &:hover {
+    border: 2px solid var(--key__color);
+  }
+
+  &:active,
+  &--pressed {
+    border: 2px solid grey;
+    background-color: #f0c760;
+    color: grey;
+    box-shadow: none;
+  }
+
   &__name {
     padding: 0 5px;
     font-size: 18px;
+    user-select: none;
   }
 
   &__up {
-    line-height: 20px;
     transform: translateY(-9px);
+    line-height: 20px;
     font-size: 0.7em;
+    user-select: none;
   }
   
   &--control &__name {
