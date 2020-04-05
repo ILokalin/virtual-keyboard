@@ -37,6 +37,12 @@ export default class {
       },
       space: () => {
         operationForFange(' ', this.textOut.selectionStart, this.textOut.selectionEnd);
+      },
+      enter: () => {
+        operationForFange('\n', this.textOut.selectionStart, this.textOut.selectionEnd);
+      },
+      tab: ()=> {
+        operationForFange('\t', this.textOut.selectionStart, this.textOut.selectionEnd);
       }
     }
 
