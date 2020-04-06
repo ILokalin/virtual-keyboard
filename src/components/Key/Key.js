@@ -36,8 +36,6 @@ export default class {
       }
       const myDownEvent = new KeyboardEvent('keydown', pressedKeyOptions);
       document.dispatchEvent(myDownEvent);
-
-      setTimeout(() => {this.propsObject.endEventKey()})
     }
   }
 
