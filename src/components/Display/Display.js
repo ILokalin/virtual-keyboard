@@ -50,9 +50,8 @@ export default class {
   }
 
   outputKey(keyObject) {
-    const {control, code, lang} = keyObject;
-    let key = keyObject.eng.key
-
+    const {control, key, code} = keyObject;
+ 
     if (control) {
       this.controlKeyOperation(code.toLowerCase());
     } else {

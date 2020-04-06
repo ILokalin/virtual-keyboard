@@ -71,22 +71,18 @@ export default class {
       this.propsObject.saveLanguage(this.state.language);
       this.key.changeLanguage(this.state.language);
     }
-
-    console.log(this.state);
-    
   }
 
   keyDownControl(event) {
-    // console.log('mama down', event.code)
     const {key, code, isTrusted} = event;
     let isContinue = true;
 
-    if (key === 'CapsLock') {
+    if (code === 'CapsLock') {
       this.setState({capsLock: true});
       isContinue = false;
     }
 
-    if (key === 'Alt') {
+    if (code === 'AltLeft' || code === 'AltRight') {
       this.setState({alt: true, value: true});
       isContinue = false;
     }
@@ -100,24 +96,68 @@ export default class {
     }
 
     if (!isTrusted && isContinue) {
-      let pressedKeyObject = KEYBOARD_LAYOUT.flat().find(item => item.code === event.code);
+      const pressedKeyObject = KEYBOARD_LAYOUT.flat().find(item => item.code === event.code);
+      const displayObject = {code}
 
-      if (pressedKeyObject) {
-        pressedKeyObject.lang = 'eng';
-        this.propsObject.displayOutput(pressedKeyObject);
-      }
+      if (!pressedKeyObject.control) {
+        const languagePack = pressedKeyObject[this.state.language] ? pressedKeyObject[this.state.language] : pressedKeyObject['eng'];
+
+        const virtualKey = (this.state.shift || this.state.capsLock) ? languagePack.shiftKey : languagePack.key;
+
+        displayObject.key = virtualKey
+      } 
+
+      displayObject.control = pressedKeyObject.control;
+      this.propsObject.displayOutput(displayObject);
     } 
 
-    if (isTrusted) {
+    if (isTrusted && isContinue) {
       this.key.press(event.code);
+
+      if (code === 'Tab') {
+        const displayObject = {
+          control: true,
+          code
+          }
+        this.propsObject.displayOutput(displayObject);
+      }
+
+      const pressedKeyPhisical = KEYBOARD_LAYOUT.flat().find(item => item.code === event.code);
+      let keyboardLanguage = this.state.language;
+
+      if (pressedKeyPhisical && !pressedKeyPhisical.control) {
+        if (key === pressedKeyPhisical.eng.key || key === pressedKeyPhisical.eng.shiftKey) {
+          keyboardLanguage = 'eng';
+        } else {
+          keyboardLanguage = 'ru';
+        }
+
+        if (keyboardLanguage !== this.state.language) {
+          this.setState({language: true})
+        }
+      }
+
+      let keyboardCapsLock = this.state.capsLock;
+      if (pressedKeyPhisical && !pressedKeyPhisical.control) {
+        if (key === pressedKeyPhisical[this.state.language].key) {
+          keyboardCapsLock = false;
+        } else {
+          keyboardCapsLock = true;
+        }
+
+        if (keyboardCapsLock !== this.state.capsLock) {
+          this.setState({capsLock: true})
+        }
+      }
+
+
     }
   }
 
   keyUpControl(event) {
-    // console.log('mama up', event.code)
     const {key, code, isTrusted} = event;
 
-    if (key === 'Alt') {
+    if (code === 'AltLeft' || code === 'AltRight') {
       this.setState({alt: true, value: false});
     }
 
