@@ -3,13 +3,14 @@ export default class {
     this.propsObject = propsObject;
     this.keyList = [];
 
-    this.handleKey = this.handleKey.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
     this.press = this.press.bind(this);
     this.unPress = this.unPress.bind(this);
   }
 
   press(code) {
-    const key = this.keyList.find(elemnt => elemnt.code === code);
+    const key = this.keyList.find(element => element.options.code === code);
 
     if (key) {
       key.classList.add('key--pressed');
@@ -17,14 +18,14 @@ export default class {
   }
 
   unPress(code) {
-    const key = this.keyList.find(elemnt => elemnt.code === code);
+    const key = this.keyList.find(element => element.options.code === code);
 
     if (key) {
       key.classList.remove('key--pressed');
     }
   }
 
-  handleKey(event) {
+  handleKeyDown(event) {
     const target = event.target,
           targetKey = target.closest('.key');
     
@@ -38,38 +39,88 @@ export default class {
       document.dispatchEvent(myDownEvent);
 
       setTimeout(() => {this.propsObject.endEventKey()})
-
-      // const myUpEvent = new KeyboardEvent('keyup', pressedKeyOptions);
-      // document.dispatchEvent(myUpEvent);
     }
   }
 
-  createKey(keyObject, lang) {
-    const {code, symbol = false, ruAll = false, control = false, eng = {}, ru = {}} = keyObject;
-    const layoutKey = keyObject[lang];
+    handleKeyUp(event) {
+    const target = event.target,
+          targetKey = target.closest('.key');
+    
+    if (targetKey) {
+      const pressedKeyOptions = {
+         bubbles: true,
+         code: targetKey.code,
+         key: targetKey.eng.key
+      }
+      const myUpEvent = new KeyboardEvent('keyup', pressedKeyOptions);
+      document.dispatchEvent(myUpEvent);
+
+      setTimeout(() => {this.propsObject.endEventKey()})
+    }
+  }
+
+  createKey(keyObject) {
+    const {code, control} = keyObject;
 
     let elementDomKey = document.createElement('div');
-    if (symbol || ruAll) {
-      elementDomKey.innerHTML = `<span class="key__name">${layoutKey.shiftKey}</span>`
-      elementDomKey.innerHTML += `<span class="key__up">${!control ? ru.shiftKey : ''}</span>`;
-    } else {
-      elementDomKey.innerHTML = `<span class="key__name">${layoutKey.key}</span>`
-      elementDomKey.innerHTML += `<span class="key__up">${!control ? layoutKey.shiftKey : ''}</span>`;
-    }
-
     elementDomKey.classList.add('key');
+    elementDomKey.options = keyObject
+
+    elementDomKey.innerHTML = '<span class="key__name"></span>';
+    elementDomKey.innerHTML += '<span class="key__up"></span>';
+
     if (control) {
       elementDomKey.control = true;
       elementDomKey.classList.add(`key--${code.toLowerCase()}`, 'key--control');
     }
 
-    elementDomKey.eng = eng;
-    elementDomKey.ru = ru;
-    elementDomKey.code = code;
-
-    elementDomKey.addEventListener('mousedown', this.handleKey)
+    elementDomKey.addEventListener('mousedown', this.handleKeyDown)
+    elementDomKey.addEventListener('mouseup', this.handleKeyUp)
 
     this.keyList.push(elementDomKey);
+    this.setLanguageLayout(elementDomKey);
     return elementDomKey;
+  }
+
+  changeLanguage(language) {
+    this.propsObject.language = language;
+
+    this.keyList .forEach(key => {
+      this.setLanguageLayout(key);
+    })
+  }
+
+  setLanguageLayout(elementKey) {
+    const {eng, ru, control, ruAll, symbol, ruShift} = elementKey.options;
+    const {language} = this.propsObject;
+
+    const layoutKey = language === 'eng' ? eng : ru,
+          altLayoutKey = language === 'eng' ? ru : eng;
+
+    const basicKeySign = elementKey.querySelector('.key__name'),
+          altKeySign = elementKey.querySelector('.key__up');
+
+    if (symbol) {
+      basicKeySign.innerText = layoutKey.shiftKey;
+      altKeySign.innerText = altLayoutKey.shiftKey;
+
+    } else if (ruAll && language === 'eng') {
+      basicKeySign.innerText = layoutKey.key;
+      altKeySign.innerText = altLayoutKey.shiftKey;
+
+    } else if (ruAll && language === 'ru') {
+      basicKeySign.innerText = layoutKey.shiftKey;
+      altKeySign.innerText = altLayoutKey.key;
+
+    } else if (control) {
+      basicKeySign.innerHTML = eng.key;
+
+    } else if (ruShift) {
+      basicKeySign.innerText = eng.key;
+      altKeySign.innerText = layoutKey.shiftKey;
+    } else {
+      basicKeySign.innerText = eng.key;
+      altKeySign.innerText = eng.shiftKey;
+    }
   }
 }
