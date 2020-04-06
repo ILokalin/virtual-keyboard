@@ -1,6 +1,15 @@
+const PLACEHOLDER_TEXT = [
+  'This app for Windows!',
+  'Automatically detect keyboard layout', 
+  'when you start type...',
+  '',
+  'Change language Alt+Shift'
+]
+
 export default class {
   constructor () {
     this.textOut = document.createElement('textarea');
+    this.textOut.placeholder = PLACEHOLDER_TEXT.join('\n')
 
     this.focus = this.focus.bind(this);
     this.outputKey = this.outputKey.bind(this);
@@ -15,7 +24,6 @@ export default class {
   }
 
   controlKeyOperation(code) {
-
     const operationForFange = (symbol, rangeStart, rangeEnd) => {
       this.textOut.setRangeText(symbol, rangeStart, rangeEnd, "end");
     }
