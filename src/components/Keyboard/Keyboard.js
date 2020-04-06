@@ -74,6 +74,8 @@ export default class {
   }
 
   keyDownControl(event) {
+    this.propsObject.focusToDispaly();
+    
     const {key, code, isTrusted} = event;
     let isContinue = true;
 
