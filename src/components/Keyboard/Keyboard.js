@@ -1,6 +1,16 @@
 import Key from 'Components/Key';
 const KEYBOARD_LAYOUT = require('./keyboard-layout.json');
 
+/* Props
+  {
+    displayOutput: display.outputKey,
+    focusToDispaly: display.focus,
+    saveLanguage: storage.saveLanguageHistory,
+    infoPanelLed: infoPanel.led,
+    lang 
+    }
+*/
+
 export default class {
   constructor (propsObject) {
     this.propsObject = propsObject;
@@ -20,10 +30,14 @@ export default class {
 
     this.keyDownControl = this.keyDownControl.bind(this);
     this.keyUpControl = this.keyUpControl.bind(this);
+    this.whatTheNeedTypeNow = this.whatTheNeedTypeNow.bind(this);
 
     this.key = new Key({
       endEventKey: propsObject.focusToDispaly,
-      language: this.state.language
+      loadLayout: this.whatTheNeedTypeNow,
+      language: this.state.language,
+      capsLock: this.state.capsLock,
+      shift: this.state.shift
       });
 
     KEYBOARD_LAYOUT.forEach(keyboardLine => {
@@ -31,7 +45,7 @@ export default class {
       line.classList.add('keyboard__line');
 
       keyboardLine.forEach(keyObject => {
-        line.append(this.key.createKey(keyObject, 'eng'));
+        line.append(this.key.createKey(keyObject));
       })
 
       this.keyboard.append(line);
@@ -55,10 +69,18 @@ export default class {
     if (capsLock) {
       this.state.capsLock = !this.state.capsLock;
       this.propsObject.infoPanelLed(this.state.capsLock, this.state.language);
+      this.key.changeLayout();
     }
 
     if (shift) {
+      const previusShiftState = this.state.shift;
       this.state.shift = value;
+
+      if (previusShiftState !== value) {
+        if (!this.state.alt) {
+          this.key.changeLayout();
+        }
+      }
     }
 
     if (control) {
@@ -73,7 +95,7 @@ export default class {
       this.state.language = this.state.language === 'eng' ? 'ru' : 'eng';
       this.propsObject.infoPanelLed(this.state.capsLock, this.state.language);
       this.propsObject.saveLanguage(this.state.language);
-      this.key.changeLanguage(this.state.language);
+      this.key.changeLayout();
     }
   }
 
@@ -82,57 +104,86 @@ export default class {
 
     const {key, code, isTrusted} = event;
     let isContinue = true;
-
-    if (code === 'CapsLock') {
-      this.setState({capsLock: true});
-      isContinue = false;
+    
+    if(isTrusted) {
+      this.key.press(event.code);
     }
 
-    if (code === 'AltLeft' || code === 'AltRight') {
-      this.setState({alt: true, value: true});
-      isContinue = false;
-    }
-
-    if (code === 'ShiftLeft' || code === 'ShiftRight') {
-      if (event.altKey || this.state.alt) {
-        this.setState({language: true})
+    const controlKeyWorker = {
+      CapsLock: () => {
+        this.setState({capsLock: true});
+        isContinue = false;
+      },
+      AltLeft: () => {
+        if (event.shiftKey || this.state.shift) {
+          this.setState({language: true});
+        }
+        this.setState({alt: true, value: true});
+        isContinue = false;
+      },
+      AltRight: () => {
+        controlKeyWorker.AltLeft();
+      },
+      ShiftLeft: () => {
+        if (event.altKey || this.state.alt) {
+          this.setState({language: true});
+        }
+        this.setState({shift: true, value: true});
+        isContinue = false;
+      },
+      ShiftRight: () => {
+        controlKeyWorker.ShiftLeft()
+      },
+      ControlLeft: () => {
+        this.setState({control: true, value: true});
+        isContinue = false;
+      },
+      ControlRight: () => {
+        controlKeyWorker.ControlLeft();
+      },
+      KeyX: () => {
+        if (this.state.control) {
+          const commandKeyObject = {
+            control: true,
+            code: 'Cute'
+          }
+          if (!isTrusted || !event.ctrlKey) {
+            this.propsObject.displayOutput(commandKeyObject);
+            event.preventDefault();
+          }
+          isContinue = false;
+        }
+      },
+      KeyC: () => {
+        if (this.state.control) {
+          const commandKeyObject = {
+            control: true,
+            code: 'Copy'
+          }
+          if (!isTrusted || !event.ctrlKey) {
+            this.propsObject.displayOutput(commandKeyObject);
+            event.preventDefault();
+          }
+          isContinue = false;
+        }
+      },
+      KeyV: () => {
+        if (this.state.control) {
+          const commandKeyObject = {
+            control: true,
+            code: 'Paste'
+          }
+          if (!isTrusted || !event.ctrlKey) {
+            this.propsObject.displayOutput(commandKeyObject);
+            event.preventDefault();
+          }
+          isContinue = false;
+        }
       }
-      this.setState({shift: true, value: true});
-      isContinue = false;
     }
 
-    if (code === 'ControlLeft' || code === 'ControlRight') {
-      this.setState({control: true, value: true});
-      isContinue = false;
-    }
-
-    if (code === 'KeyX' && this.state.control) {
-      const commandKeyObject = {
-        control: true,
-        code: 'Cute'
-      }
-      this.propsObject.displayOutput(commandKeyObject);
-      isContinue = false;
-    }
-
-    if (code === 'KeyC' && this.state.control) {
-      const commandKeyObject = {
-        control: true,
-        code: 'Copy'
-      }
-      this.propsObject.displayOutput(commandKeyObject);
-      isContinue = false;
-    }
-
-    if (code === 'KeyV' && this.state.control) {
-      const commandKeyObject = {
-        control: true,
-        code: 'Paste'
-      }
-      if (!isTrusted || !event.ctrlKey) {
-        this.propsObject.displayOutput(commandKeyObject);
-      }
-      isContinue = false;
+    if (code in controlKeyWorker) {
+      controlKeyWorker[code]();
     }
 
     if (!isTrusted && isContinue) {
@@ -144,51 +195,32 @@ export default class {
 
         const virtualKey = (this.state.shift || this.state.capsLock) ? languagePack.shiftKey : languagePack.key;
 
-        displayObject.key = virtualKey
+        displayObject.key = virtualKey;
       } 
 
       displayObject.control = pressedKeyObject.control;
       this.propsObject.displayOutput(displayObject);
     } 
 
-    if(isTrusted) {
-      this.key.press(event.code);
-    }
-
     if (isTrusted && isContinue) {
       if (code === 'Tab') {
         const displayObject = {
           control: true,
           code
-          }
+        }
         this.propsObject.displayOutput(displayObject);
       }
 
-      const pressedKeyPhisical = KEYBOARD_LAYOUT.flat().find(item => item.code === event.code);
-      let keyboardLanguage = this.state.language;
-
-      if (pressedKeyPhisical && !pressedKeyPhisical.control) {
-        if (key === pressedKeyPhisical.eng.key || key === pressedKeyPhisical.eng.shiftKey) {
-          keyboardLanguage = 'eng';
-        } else {
-          keyboardLanguage = 'ru';
-        }
-
-        if (keyboardLanguage !== this.state.language) {
-          this.setState({language: true})
-        }
-      }
-
-      let keyboardCapsLock = this.state.capsLock;
-      if (pressedKeyPhisical && !pressedKeyPhisical.control) {
-        if (key === pressedKeyPhisical[this.state.language].key) {
-          keyboardCapsLock = false;
-        } else {
-          keyboardCapsLock = true;
-        }
-
-        if (keyboardCapsLock !== this.state.capsLock) {
-          this.setState({capsLock: true})
+      const layoutNow = this.whatTheNeedTypeNow(code)
+      if (layoutNow.isFindOk && !layoutNow.control) {
+        if (!event.ctrlKey && !event.altKey) {
+          event.preventDefault();
+          const displayObject = {
+            control: false,
+            key: layoutNow.key,
+            code
+          }
+          this.propsObject.displayOutput(displayObject);
         }
       }
     }
@@ -211,5 +243,72 @@ export default class {
 
     this.key.unPress(event.code);
   }
-}
 
+  whatTheNeedTypeNow(code) {
+    let key = '',
+        shiftKey = '',
+        isFindOk = true;
+
+    const keyObject = KEYBOARD_LAYOUT.flat().find(item => item.code === code);
+
+    if (!keyObject) {
+      return {key, shiftKey, isFindOk: false}
+    } 
+
+    const {eng, ru, control, ruAll, engOnly, symbol, ruShift, ruSign} = keyObject;
+    const {language, capsLock, shift} = this.state;
+
+    const layoutKey = language === 'eng' ? eng : ru,
+          altLayoutKey = language === 'eng' ? ru : eng;
+
+    if (control) {
+      key = eng.key;
+    }
+
+    if (symbol) {
+      if (capsLock) {
+        key = shift ? layoutKey.key : layoutKey.shiftKey;
+        shiftKey = shift ? altLayoutKey.key : altLayoutKey.shiftKey;
+      } else {
+        key = shift ? layoutKey.shiftKey : layoutKey.key;
+        shiftKey = shift ? altLayoutKey.shiftKey : altLayoutKey.key;
+      }
+    }
+
+    if (ruAll) {
+      if (language === 'eng') {
+          key = shift ? layoutKey.shiftKey : layoutKey.key;
+        if (capsLock) {
+          shiftKey = shift ? altLayoutKey.key : altLayoutKey.shiftKey;
+        } else {
+          shiftKey = shift ? altLayoutKey.shiftKey : altLayoutKey.key;
+        }
+      } else if (language === 'ru') {
+        if (capsLock) {
+          key = shift ? layoutKey.key : layoutKey.shiftKey;
+          shiftKey = shift ? altLayoutKey.key : altLayoutKey.shiftKey;
+        } else {
+          key = shift ? layoutKey.shiftKey : layoutKey.key;
+          shiftKey = shift ? altLayoutKey.shiftKey : altLayoutKey.key;
+        }
+      }
+    }
+
+    if (ruShift) {
+      key = !shift ? layoutKey.key : layoutKey.shiftKey;
+      shiftKey = shift ? '' : layoutKey.shiftKey;
+    }
+
+    if (ruSign) {
+      key = shift ? layoutKey.shiftKey : layoutKey.key;
+      shiftKey = !shift ? layoutKey.shiftKey : layoutKey.key;
+    }
+
+    if (engOnly) {
+      key = shift ? eng.shiftKey : eng.key;
+      shiftKey = !shift ? eng.shiftKey : eng.key;
+    }
+
+    return {key, shiftKey, isFindOk, control}
+  }
+}

@@ -1,3 +1,12 @@
+/* Props
+  {
+    endEventKey: propsObject.focusToDispaly,
+    language: this.state.language,
+    loadLayout: this.whatTheNeedTypeNow,
+    capsLock: this.state.capsLock,
+    shift: 
+  }*/
+
 export default class {
   constructor (propsObject) {
     this.propsObject = propsObject;
@@ -10,7 +19,7 @@ export default class {
   }
 
   press(code) {
-    const key = this.keyList.find(element => element.options.code === code);
+    const key = this.keyList.find(element => element.code === code);
 
     if (key) {
       key.classList.add('key--pressed');
@@ -18,7 +27,7 @@ export default class {
   }
 
   unPress(code) {
-    const key = this.keyList.find(element => element.options.code === code);
+    const key = this.keyList.find(element => element.code === code);
 
     if (key) {
       key.classList.remove('key--pressed');
@@ -32,21 +41,21 @@ export default class {
     if (targetKey) {
       const pressedKeyOptions = {
          bubbles: true,
-         code: targetKey.options.code
+         code: targetKey.code
       }
       const myDownEvent = new KeyboardEvent('keydown', pressedKeyOptions);
       document.dispatchEvent(myDownEvent);
     }
   }
 
-    handleKeyUp(event) {
+  handleKeyUp(event) {
     const target = event.target,
           targetKey = target.closest('.key');
     
     if (targetKey) {
       const pressedKeyOptions = {
          bubbles: true,
-         code: targetKey.options.code
+         code: targetKey.code
       }
       const myUpEvent = new KeyboardEvent('keyup', pressedKeyOptions);
       document.dispatchEvent(myUpEvent);
@@ -60,7 +69,7 @@ export default class {
 
     let elementDomKey = document.createElement('div');
     elementDomKey.classList.add('key');
-    elementDomKey.options = keyObject
+    elementDomKey.code = code;
 
     elementDomKey.innerHTML = '<span class="key__name"></span>';
     elementDomKey.innerHTML += '<span class="key__up"></span>';
@@ -74,55 +83,22 @@ export default class {
     elementDomKey.addEventListener('mouseup', this.handleKeyUp)
 
     this.keyList.push(elementDomKey);
-    this.setLanguageLayout(elementDomKey);
+    this.setKeyLayout(elementDomKey);
     return elementDomKey;
   }
 
-  changeLanguage(language) {
-    this.propsObject.language = language;
-
+  changeLayout() {
     this.keyList .forEach(key => {
-      this.setLanguageLayout(key);
+      this.setKeyLayout(key);
     })
   }
 
-  setLanguageLayout(elementKey) {
-    const {eng, ru, control, ruAll, symbol, ruShift, ruSign} = elementKey.options;
-    const {language} = this.propsObject;
-
-    const layoutKey = language === 'eng' ? eng : ru,
-          altLayoutKey = language === 'eng' ? ru : eng;
-
+  setKeyLayout(elementKey) {
     const basicKeySign = elementKey.querySelector('.key__name'),
           altKeySign = elementKey.querySelector('.key__up');
 
-    if (symbol) {
-      basicKeySign.innerText = layoutKey.shiftKey;
-      altKeySign.innerText = altLayoutKey.shiftKey;
-
-    } else if (ruAll && language === 'eng') {
-      basicKeySign.innerText = layoutKey.key;
-      altKeySign.innerText = altLayoutKey.shiftKey;
-
-    } else if (ruAll && language === 'ru') {
-      basicKeySign.innerText = layoutKey.shiftKey;
-      altKeySign.innerText = altLayoutKey.key;
-
-    } else if (control) {
-      basicKeySign.innerHTML = eng.key;
-
-    } else if (ruShift) {
-      basicKeySign.innerText = eng.key;
-      altKeySign.innerText = layoutKey.shiftKey;
-
-    } else if (ruSign) {
-      basicKeySign.innerText = layoutKey.key;
-      altKeySign.innerText = layoutKey.shiftKey;
-
-    } else {
-      basicKeySign.innerText = eng.key;
-      altKeySign.innerText = eng.shiftKey;
-
-    }
+    const whatLayoutNow = this.propsObject.loadLayout(elementKey.code);
+    basicKeySign.innerHTML = whatLayoutNow.key;
+    altKeySign.innerHTML = whatLayoutNow.shiftKey;
   }
 }
