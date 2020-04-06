@@ -10,7 +10,7 @@
     {"code": "Digit7", "ruShift": true, "eng": {"key": "7", "shiftKey": "&"}, "ru": {"key": "7", "shiftKey": "?"}},
     {"code": "Digit8", "ruShift": true, "eng": {"key": "8", "shiftKey": "*"}, "ru": {"key": "8", "shiftKey": "*"}},
     {"code": "Digit9", "ruShift": true, "eng": {"key": "9", "shiftKey": "("}, "ru": {"key": "9", "shiftKey": "("}},
-    {"code": "Digit0", "ruShift": true, "eng": {"key": "0", "shiftKey": ")"}, "ru": {"key": "1", "shiftKey": "!"}},
+    {"code": "Digit0", "ruShift": true, "eng": {"key": "0", "shiftKey": ")"}, "ru": {"key": "0", "shiftKey": ")"}},
     {"code": "Minus", "eng": {"key": "-", "shiftKey": "_"}},
     {"code": "Equal", "eng": {"key": "=", "shiftKey": "+"}},
     {"code": "Backspace", "control": true, "eng": {"key": "Backspace"}}
@@ -46,17 +46,17 @@
     {"code": "Enter", "control": true, "eng": {"key": "Enter"}}
   ],[
     {"code": "ShiftLeft", "control": true, "eng": {"key": "&#8679;Shift"}},
-    {"code": "KeyZ", "symbol": true, "eng": {"key": "z", "shiftKey": "Z"}, "ru": {"key": "й", "shiftKey": "Й"}},
-    {"code": "KeyX", "symbol": true, "eng": {"key": "x", "shiftKey": "X"}, "ru": {"key": "ч", "shiftKey": "Ч"}},
-    {"code": "KeyC", "symbol": true, "eng": {"key": "c", "shiftKey": "C"}, "ru": {"key": "с", "shiftKey": "С"}},
-    {"code": "KeyV", "symbol": true,"eng": {"key": "v", "shiftKey": "V"}, "ru": {"key": "м", "shiftKey": "М"}},
-    {"code": "KeyB", "symbol": true,"eng": {"key": "b", "shiftKey": "B"}, "ru": {"key": "и", "shiftKey": "И"}},
-    {"code": "KeyN", "symbol": true,"eng": {"key": "n", "shiftKey": "N"}, "ru": {"key": "т", "shiftKey": "Т"}},
-    {"code": "KeyM", "symbol": true,"eng": {"key": "m", "shiftKey": "M"}, "ru": {"key": "ь", "shiftKey": "Ь"}},
-    {"code": "Comma", "ruAll": true, "eng": {"key": ",", "shiftKey": "<"}, "ru": {"key": "б", "shiftKey": "Б"}},
+    {"code": "KeyZ", "symbol": true,  "eng": {"key": "z", "shiftKey": "Z"}, "ru": {"key": "й", "shiftKey": "Й"}},
+    {"code": "KeyX", "symbol": true,  "eng": {"key": "x", "shiftKey": "X"}, "ru": {"key": "ч", "shiftKey": "Ч"}},
+    {"code": "KeyC", "symbol": true,  "eng": {"key": "c", "shiftKey": "C"}, "ru": {"key": "с", "shiftKey": "С"}},
+    {"code": "KeyV", "symbol": true,  "eng": {"key": "v", "shiftKey": "V"}, "ru": {"key": "м", "shiftKey": "М"}},
+    {"code": "KeyB", "symbol": true,  "eng": {"key": "b", "shiftKey": "B"}, "ru": {"key": "и", "shiftKey": "И"}},
+    {"code": "KeyN", "symbol": true,  "eng": {"key": "n", "shiftKey": "N"}, "ru": {"key": "т", "shiftKey": "Т"}},
+    {"code": "KeyM", "symbol": true,  "eng": {"key": "m", "shiftKey": "M"}, "ru": {"key": "ь", "shiftKey": "Ь"}},
+    {"code": "Comma", "ruAll": true,  "eng": {"key": ",", "shiftKey": "<"}, "ru": {"key": "б", "shiftKey": "Б"}},
     {"code": "Period", "ruAll": true, "eng": {"key": ".", "shiftKey": ">"}, "ru": {"key": "ю", "shiftKey": "Ю"}},
     {"code": "Slash", "eng": {"key": "/", "shiftKey": "?"}, "ru": {"key": ".", "shiftKey": ","}},
-    {"code": "Quote", "eng": {"key": "'", "shiftKey": "\""}},
+    {"code": "Empty", "eng": {"key": "", "shiftKey": ""}},
     {"code": "ArrowUp", "control": true, "eng": {"key": "&uarr;"}},
     {"code": "ShiftRight", "control": true, "eng": {"key": "&#8679;"}}
   ],[
