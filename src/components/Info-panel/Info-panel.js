@@ -23,7 +23,7 @@ export default class {
     if (isCapsLock) {
       capsLockLed.classList.add('panel__caps-led--active');
     } else {
-      capsLockLed.classList.remove('panel__caps--active');
+      capsLockLed.classList.remove('panel__caps-led--active');
     }
 
     languageLed.innerText = language;
