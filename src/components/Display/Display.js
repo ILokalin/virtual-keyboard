@@ -42,9 +42,9 @@ export default class {
         index++;
       }
 
-      if (!this.isCursorMoving && checkPosition === stringTextArr[index].length) {
-        this.isCursorInEndOfLine = true;
-      }
+      // if (!this.isCursorMoving && checkPosition === stringTextArr[index].length) {
+      //   this.isCursorInEndOfLine = true;
+      // }
 
       if (direct === 'up') {
         if (index === 0) {
@@ -126,6 +126,54 @@ export default class {
       },
       arrowright: () => {
         this.textOut.selectionStart = ++this.textOut.selectionEnd;
+        this.isCursorInEndOfLine = false;
+      },
+      cute: () => {
+        let tempStart = this.textOut.selectionStart;
+        const textBuffer = this.textOut.value.slice(this.textOut.selectionStart,this.textOut.selectionEnd);
+        operationForFange('', this.textOut.selectionStart, this.textOut.selectionEnd);
+        this.textOut.selectionStart = tempStart;
+        this.textOut.selectionEnd = tempStart;
+
+        navigator.clipboard.writeText(this.textBuffer)
+          .then(() => {
+            
+          })
+          .catch(err => {
+
+          })
+
+        this.isCursorMoving = false;
+        this.isCursorInEndOfLine = false;
+      },
+      copy: () => {
+        let tempStart = this.textOut.selectionStart;
+        const textBuffer = this.textOut.value.slice(this.textOut.selectionStart,this.textOut.selectionEnd);
+        this.textOut.selectionStart = tempStart;
+        this.textOut.selectionEnd = tempStart;
+
+        navigator.clipboard.writeText(this.textBuffer)
+          .then(() => {
+
+          })
+          .catch(err => {
+
+          })
+
+        this.isCursorMoving = false;
+        this.isCursorInEndOfLine = false;
+      },
+      paste: async () => {
+        let textBuffer = '';
+        await navigator.clipboard.readText()
+          .then(text => {
+            textBuffer = text
+          })
+          .catch(err => {
+
+          })
+        operationForFange(textBuffer, this.textOut.selectionStart, this.textOut.selectionEnd);
+        this.isCursorMoving = false;
         this.isCursorInEndOfLine = false;
       }
     }

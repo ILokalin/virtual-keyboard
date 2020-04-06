@@ -61,6 +61,10 @@ export default class {
       this.state.shift = value;
     }
 
+    if (control) {
+      this.state.control = value;
+    }
+
     if (alt) {
       this.state.alt = value;
     }
@@ -75,7 +79,7 @@ export default class {
 
   keyDownControl(event) {
     this.propsObject.focusToDispaly();
-    
+
     const {key, code, isTrusted} = event;
     let isContinue = true;
 
@@ -97,6 +101,38 @@ export default class {
       isContinue = false;
     }
 
+    if (code === 'ControlLeft' || code === 'ControlRight') {
+      this.setState({control: true, value: true});
+      isContinue = false;
+    }
+
+    if (code === 'KeyX' && this.state.control) {
+      const commandKeyObject = {
+        control: true,
+        code: 'Cute'
+      }
+      this.propsObject.displayOutput(commandKeyObject);
+      isContinue = false;
+    }
+
+    if (code === 'KeyC' && this.state.control) {
+      const commandKeyObject = {
+        control: true,
+        code: 'Copy'
+      }
+      this.propsObject.displayOutput(commandKeyObject);
+      isContinue = false;
+    }
+
+    if (code === 'KeyV' && this.state.control) {
+      const commandKeyObject = {
+        control: true,
+        code: 'Paste'
+      }
+      this.propsObject.displayOutput(commandKeyObject);
+      isContinue = false;
+    }
+
     if (!isTrusted && isContinue) {
       const pressedKeyObject = KEYBOARD_LAYOUT.flat().find(item => item.code === event.code);
       const displayObject = {code}
@@ -113,9 +149,11 @@ export default class {
       this.propsObject.displayOutput(displayObject);
     } 
 
-    if (isTrusted && isContinue) {
+    if(isTrusted) {
       this.key.press(event.code);
+    }
 
+    if (isTrusted && isContinue) {
       if (code === 'Tab') {
         const displayObject = {
           control: true,
@@ -151,8 +189,6 @@ export default class {
           this.setState({capsLock: true})
         }
       }
-
-
     }
   }
 
@@ -165,6 +201,10 @@ export default class {
 
     if (code === 'ShiftLeft' || code === 'ShiftRight') {
       this.setState({shift: true, value: false});
+    }
+
+    if (code === 'ControlLeft' || code === 'ControlRight') {
+      this.setState({control: true, value: false});
     }
 
     this.key.unPress(event.code);
