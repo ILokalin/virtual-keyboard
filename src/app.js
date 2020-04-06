@@ -1,4 +1,6 @@
 import './app.scss';
+require.context("Src/images/", true, /\.(png|svg|jpg|gif)$/);
+
 import Display from 'Components/Display';
 import InfoPanel from 'Components/Info-panel';
 import Keyboard from 'Components/Keyboard';
