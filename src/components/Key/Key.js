@@ -32,8 +32,7 @@ export default class {
     if (targetKey) {
       const pressedKeyOptions = {
          bubbles: true,
-         code: targetKey.code,
-         key: targetKey.eng.key
+         code: targetKey.options.code
       }
       const myDownEvent = new KeyboardEvent('keydown', pressedKeyOptions);
       document.dispatchEvent(myDownEvent);
@@ -49,8 +48,7 @@ export default class {
     if (targetKey) {
       const pressedKeyOptions = {
          bubbles: true,
-         code: targetKey.code,
-         key: targetKey.eng.key
+         code: targetKey.options.code
       }
       const myUpEvent = new KeyboardEvent('keyup', pressedKeyOptions);
       document.dispatchEvent(myUpEvent);
@@ -91,7 +89,7 @@ export default class {
   }
 
   setLanguageLayout(elementKey) {
-    const {eng, ru, control, ruAll, symbol, ruShift} = elementKey.options;
+    const {eng, ru, control, ruAll, symbol, ruShift, ruSign} = elementKey.options;
     const {language} = this.propsObject;
 
     const layoutKey = language === 'eng' ? eng : ru,
@@ -118,9 +116,15 @@ export default class {
     } else if (ruShift) {
       basicKeySign.innerText = eng.key;
       altKeySign.innerText = layoutKey.shiftKey;
+
+    } else if (ruSign) {
+      basicKeySign.innerText = layoutKey.key;
+      altKeySign.innerText = layoutKey.shiftKey;
+
     } else {
       basicKeySign.innerText = eng.key;
       altKeySign.innerText = eng.shiftKey;
+
     }
   }
 }
