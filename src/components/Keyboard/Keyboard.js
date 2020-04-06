@@ -129,7 +129,9 @@ export default class {
         control: true,
         code: 'Paste'
       }
-      this.propsObject.displayOutput(commandKeyObject);
+      if (!isTrusted || !event.ctrlKey) {
+        this.propsObject.displayOutput(commandKeyObject);
+      }
       isContinue = false;
     }
 

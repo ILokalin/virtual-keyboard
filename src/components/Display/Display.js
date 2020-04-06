@@ -27,7 +27,7 @@ export default class {
   }
 
   controlKeyOperation(code) {
-    const operationForFange = (symbol, rangeStart, rangeEnd) => {
+    const operationForRange = (symbol, rangeStart, rangeEnd) => {
       this.textOut.setRangeText(symbol, rangeStart, rangeEnd, "end");
     }
 
@@ -84,7 +84,7 @@ export default class {
           this.textOut.selectionStart--;
         } 
 
-        operationForFange('', this.textOut.selectionStart, this.textOut.selectionEnd);
+        operationForRange('', this.textOut.selectionStart, this.textOut.selectionEnd);
         this.isCursorMoving = false;
         this.isCursorInEndOfLine = false;
       },
@@ -93,22 +93,22 @@ export default class {
           this.textOut.selectionEnd++;
         } 
  
-        operationForFange('', this.textOut.selectionStart, this.textOut.selectionEnd);
+        operationForRange('', this.textOut.selectionStart, this.textOut.selectionEnd);
         this.isCursorMoving = false;
         this.isCursorInEndOfLine = false;
       },
       space: () => {
-        operationForFange(' ', this.textOut.selectionStart, this.textOut.selectionEnd);
+        operationForRange(' ', this.textOut.selectionStart, this.textOut.selectionEnd);
         this.isCursorMoving = false;
         this.isCursorInEndOfLine = false;
       },
       enter: () => {
-        operationForFange('\n', this.textOut.selectionStart, this.textOut.selectionEnd);
+        operationForRange('\n', this.textOut.selectionStart, this.textOut.selectionEnd);
         this.isCursorMoving = false;
         this.isCursorInEndOfLine = false;
       },
       tab: ()=> {
-        operationForFange('\t', this.textOut.selectionStart, this.textOut.selectionEnd);
+        operationForRange('\t', this.textOut.selectionStart, this.textOut.selectionEnd);
         this.isCursorMoving = false;
         this.isCursorInEndOfLine = false;
       },
@@ -130,17 +130,15 @@ export default class {
       },
       cute: () => {
         let tempStart = this.textOut.selectionStart;
-        const textBuffer = this.textOut.value.slice(this.textOut.selectionStart,this.textOut.selectionEnd);
-        operationForFange('', this.textOut.selectionStart, this.textOut.selectionEnd);
-        this.textOut.selectionStart = tempStart;
-        this.textOut.selectionEnd = tempStart;
 
-        navigator.clipboard.writeText(this.textBuffer)
+        navigator.clipboard.writeText(this.textOut.value.slice(this.textOut.selectionStart,this.textOut.selectionEnd))
           .then(() => {
-            
+            operationForRange('', this.textOut.selectionStart, this.textOut.selectionEnd);
+            this.textOut.selectionStart = tempStart;
+            this.textOut.selectionEnd = tempStart;
           })
           .catch(err => {
-
+            console.log('This operation is canceled. Check protocol for this app. Need https only');
           })
 
         this.isCursorMoving = false;
@@ -148,31 +146,29 @@ export default class {
       },
       copy: () => {
         let tempStart = this.textOut.selectionStart;
-        const textBuffer = this.textOut.value.slice(this.textOut.selectionStart,this.textOut.selectionEnd);
-        this.textOut.selectionStart = tempStart;
-        this.textOut.selectionEnd = tempStart;
-
-        navigator.clipboard.writeText(this.textBuffer)
+  
+        navigator.clipboard.writeText(this.textOut.value.slice(this.textOut.selectionStart,this.textOut.selectionEnd))
           .then(() => {
-
+            this.textOut.selectionStart = tempStart;
+            this.textOut.selectionEnd = tempStart;
           })
           .catch(err => {
-
+            console.log('This operation is canceled. Check protocol for this app. Need https only');
           })
 
         this.isCursorMoving = false;
         this.isCursorInEndOfLine = false;
       },
-      paste: async () => {
-        let textBuffer = '';
-        await navigator.clipboard.readText()
+      paste: () => {
+        navigator.clipboard.readText()
           .then(text => {
-            textBuffer = text
+            console.log(text)
+            operationForRange(text, this.textOut.selectionStart, this.textOut.selectionEnd);
           })
           .catch(err => {
-
+            console.log('Sorry. This operation is canceled. Check protocol for this app. Need https only');
           })
-        operationForFange(textBuffer, this.textOut.selectionStart, this.textOut.selectionEnd);
+
         this.isCursorMoving = false;
         this.isCursorInEndOfLine = false;
       }
