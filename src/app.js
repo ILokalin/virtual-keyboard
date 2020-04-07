@@ -24,8 +24,6 @@ body.classList.add('page');
 container.classList.add('page__container');
 body.append(container);
 
-
-
 display.insert(container);
 infoPanel.insert(container);
 keyboard.insert(container);
