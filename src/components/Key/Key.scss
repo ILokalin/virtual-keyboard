@@ -33,8 +33,8 @@
     border: 2px solid grey;
     box-shadow: none;
     background-color: var(--key__background_active);
-    color: var(--key__color_active);
     animation: press 0.2s ease 1;
+    color: var(--key__color_active);
   }
 
   @keyframes press {

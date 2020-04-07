@@ -12,13 +12,13 @@
     resize: none;
   
     &::placeholder {
+      transition: 0.5;
+      opacity: 0.4;
       padding-top: 20px;
-      font-size: 24px;
-      color: #3c3c3c;
       text-align: center;
       line-height: 36px;
-      opacity: 0.4;
-      transition: 0.5;
+      color: #3c3c3c;
+      font-size: 24px;
     }
   }
   
@@ -42,13 +42,13 @@
 
   &__button {
     display: block;
-    padding: 6px 35px;
-    border-radius: 12px;
-    background: none;
-    box-shadow: none;
-    border: 2px solid grey;
     margin: 35px auto 0;
     outline: none;
+    border: 2px solid grey;
+    border-radius: 12px;
+    box-shadow: none;
+    background: none;
     cursor: pointer;
+    padding: 6px 35px;
   }
 }
