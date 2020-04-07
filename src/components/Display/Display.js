@@ -1,16 +1,6 @@
-const PLACEHOLDER_TEXT = [
-  'This app for Windows...',
-  '',
-  'Change language Alt+Shift',
-  'or special key on v-keyboard.'
-]
-
-const MEMORY_FOR_CHECKER = [
-  '<h3 class="display__popup-title">Virtual keyboard</h3>',
-  '<p>App for Windows</p>',
-  '<p>Change language Alt+Shift</p>',
-  '<a href="https://rolling-scopes-school.github.io/checklist/">Чек-лист для проверки...</a>'
-]
+const PLACEHOLDER_TEXT = require('./placeholder.json');
+const MEMORY_FOR_CHECKER = require('./instruction.json');
+const CONSOLE_LOGO = require('./console-logo.json');
 
 export default class {
   constructor () {
@@ -28,6 +18,12 @@ export default class {
     this.positionInString = this.textOut.selectionStart;
     this.isCursorMoving = false;
     this.isCursorInEndOfLine = false;
+
+    
+
+    CONSOLE_LOGO.forEach(string => {
+      console.log(string);
+    })
   }
 
   insert(parent) {
