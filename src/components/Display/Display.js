@@ -175,7 +175,7 @@ export default class {
             this.textOut.selectionEnd = tempStart;
           })
           .catch(err => {
-            console.log('This operation is canceled. Check protocol for this app. Need https only');
+            console.log('Sorry. This operation is canceled. Please allow this function in your browser.');
           })
 
         this.isCursorMoving = false;
@@ -190,7 +190,7 @@ export default class {
             this.textOut.selectionEnd = tempStart;
           })
           .catch(err => {
-            console.log('This operation is canceled. Check protocol for this app. Need https only');
+            console.log('Sorry. This operation is canceled. Please allow this function in your browser.');
           })
 
         this.isCursorMoving = false;
@@ -199,11 +199,10 @@ export default class {
       paste: () => {
         navigator.clipboard.readText()
           .then(text => {
-            console.log(text)
             operationForRange(text, this.textOut.selectionStart, this.textOut.selectionEnd);
           })
           .catch(err => {
-            console.log('Sorry. This operation is canceled. Check protocol for this app. Need https only');
+            console.log('Sorry. This operation is canceled. Please allow this function in your browser.');
           })
 
         this.isCursorMoving = false;
