@@ -375,6 +375,7 @@ const CONSOLE_LOGO = __webpack_require__(5);
     this.focus();
   }
 });
+
 // CONCATENATED MODULE: ./src/components/Info-panel/Info-panel.js
 const CAPS_LOCK = '<p class="panel__caps">Caps Lock<span class="panel__caps-led"></span></p>',
       LANGUAGE  = '<p class="panel__lang">Language<span class="panel__lang-led"></span></p>',
@@ -408,6 +409,7 @@ const CAPS_LOCK = '<p class="panel__caps">Caps Lock<span class="panel__caps-led"
     languageLed.innerText = language;
   }
 });
+
 // CONCATENATED MODULE: ./src/components/Key/Key.js
 /* Props
   {
@@ -513,6 +515,7 @@ const CAPS_LOCK = '<p class="panel__caps">Caps Lock<span class="panel__caps-led"
     altKeySign.innerHTML = whatLayoutNow.shiftKey;
   }
 });
+
 // CONCATENATED MODULE: ./src/components/Keyboard/Keyboard.js
 
 const KEYBOARD_LAYOUT = __webpack_require__(6);
@@ -751,6 +754,10 @@ const KEYBOARD_LAYOUT = __webpack_require__(6);
         }
       }
     }
+
+    if (!isContinue) {
+      this.propsObject.focusToDispaly();
+    }
   }
 
   keyUpControl(event) {
@@ -855,7 +862,7 @@ const KEYBOARD_LAYOUT = __webpack_require__(6);
   loadLanguageHistory () {
     let response = localStorage.getItem('virtualKeyboardLanguage');
 
-    if (!response) {
+    if (!response || (response !== 'ru' && response !== 'eng')) {
       response = 'eng';
       this.saveLanguageHistory(response);
     }
