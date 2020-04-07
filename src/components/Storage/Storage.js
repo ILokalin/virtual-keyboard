@@ -6,7 +6,7 @@ export default class {
   loadLanguageHistory () {
     let response = localStorage.getItem('virtualKeyboardLanguage');
 
-    if (!response) {
+    if (!response || (response !== 'ru' && response !== 'eng')) {
       response = 'eng';
       this.saveLanguageHistory(response);
     }
