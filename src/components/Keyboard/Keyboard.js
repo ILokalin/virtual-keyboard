@@ -235,6 +235,10 @@ export default class {
         }
       }
     }
+
+    if (!isContinue) {
+      this.propsObject.focusToDispaly();
+    }
   }
 
   keyUpControl(event) {
