@@ -6,30 +6,20 @@
 - базовых знаний **БЭМ**, **JS**, **WebPack**;
 - навыков подключать шрифты, JavaScript-библиотеки и jQuery-плагины;
 
-Макет для верстки: [figma.com/toxin](https://www.figma.com/file/MumYcKVk9RkKZEG6dR5E3A/)
+### Demo ###
+Link for demo: [http://keyboard/lokalin/index.html](http://keyboard/lokalin/index.html)
 
-## Демонстрация
+### Install ###
 
-## Установка и запуск
+node.js requerd
+Clone or download repository.
 
-### Необходимые компоненты
+Use `npm i` for install node modules
 
-### Установка
-### Запуск проекта
+`npm start` for start dev-server
 
-## Запуск тестов
+`npm run build` for build app
 
-## Сборка проекта и загрузка на хостинг
+### About app ###
 
-## Инструментарий
-- WebPack
-- Pug
-- SCSS
-- JS
 
-Сторонние плагины:
-- air-datepicker
-- ion-rangeSlider
-
-## Автор
-- [Ilya Lokain](https://github.com/ILokalin)
