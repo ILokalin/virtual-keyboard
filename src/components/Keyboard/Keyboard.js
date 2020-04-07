@@ -23,6 +23,8 @@ export default class {
       control: false
     }
 
+    this.isChangeLanguageProcess = false;
+
     this.propsObject.infoPanelLed(this.state.capsLock, this.state.language);
 
     this.keyboard = document.createElement('div');
@@ -92,10 +94,15 @@ export default class {
     }
 
     if (language) {
-      this.state.language = this.state.language === 'eng' ? 'ru' : 'eng';
-      this.propsObject.infoPanelLed(this.state.capsLock, this.state.language);
-      this.propsObject.saveLanguage(this.state.language);
-      this.key.changeLayout();
+      if (!this.isChangeLanguageProcess) {
+        this.state.language = this.state.language === 'eng' ? 'ru' : 'eng';
+        this.propsObject.infoPanelLed(this.state.capsLock, this.state.language);
+        this.propsObject.saveLanguage(this.state.language);
+        this.key.changeLayout();
+
+        this.isChangeLanguageProcess = true;
+      }
+
     }
   }
 
@@ -117,6 +124,7 @@ export default class {
       AltLeft: () => {
         if (event.shiftKey || this.state.shift) {
           this.setState({language: true});
+          event.preventDefault();
         }
         this.setState({alt: true, value: true});
         isContinue = false;
@@ -127,6 +135,7 @@ export default class {
       ShiftLeft: () => {
         if (event.altKey || this.state.alt) {
           this.setState({language: true});
+          event.preventDefault()
         }
         this.setState({shift: true, value: true});
         isContinue = false;
@@ -147,10 +156,9 @@ export default class {
             control: true,
             code: 'Cute'
           }
-          if (!isTrusted || !event.ctrlKey) {
-            this.propsObject.displayOutput(commandKeyObject);
-            event.preventDefault();
-          }
+          this.propsObject.displayOutput(commandKeyObject);
+          event.preventDefault();
+
           isContinue = false;
         }
       },
@@ -160,10 +168,9 @@ export default class {
             control: true,
             code: 'Copy'
           }
-          if (!isTrusted || !event.ctrlKey) {
-            this.propsObject.displayOutput(commandKeyObject);
-            event.preventDefault();
-          }
+          this.propsObject.displayOutput(commandKeyObject);
+          event.preventDefault();
+
           isContinue = false;
         }
       },
@@ -173,16 +180,16 @@ export default class {
             control: true,
             code: 'Paste'
           }
-          if (!isTrusted || !event.ctrlKey) {
-            this.propsObject.displayOutput(commandKeyObject);
-            event.preventDefault();
-          }
+          this.propsObject.displayOutput(commandKeyObject);
+          event.preventDefault();
+
           isContinue = false;
         }
       },
       Lang: () => {
         this.setState({language: true});
         isContinue = false;
+        this.isChangeLanguageProcess = false;
       }
     }
 
@@ -235,10 +242,12 @@ export default class {
 
     if (code === 'AltLeft' || code === 'AltRight') {
       this.setState({alt: true, value: false});
+      this.isChangeLanguageProcess = false;
     }
 
     if (code === 'ShiftLeft' || code === 'ShiftRight') {
       this.setState({shift: true, value: false});
+      this.isChangeLanguageProcess = false;
     }
 
     if (code === 'ControlLeft' || code === 'ControlRight') {
