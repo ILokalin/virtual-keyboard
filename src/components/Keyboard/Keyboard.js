@@ -179,6 +179,10 @@ export default class {
           }
           isContinue = false;
         }
+      },
+      Lang: () => {
+        this.setState({language: true});
+        isContinue = false;
       }
     }
 
@@ -262,7 +266,11 @@ export default class {
           altLayoutKey = language === 'eng' ? ru : eng;
 
     if (control) {
-      key = eng.key;
+      if (ru && ru.key) {
+        key = layoutKey.key;
+      } else {
+        key = eng.key;
+      }
     }
 
     if (symbol) {
