@@ -27,4 +27,9 @@
     margin: 0 5px;
     color: #f0c760; 
   }
+
+  &__instruction {
+    flex-grow: 1;
+    text-align: right;
+  }
 }
