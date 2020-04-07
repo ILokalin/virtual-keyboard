@@ -1,14 +1,26 @@
 const PLACEHOLDER_TEXT = [
-  'This app for Windows!',
-  'Automatically detect keyboard layout', 
-  'when you start type...','',
-  'Change language Alt+Shift'
+  'This app for Windows...',
+  '',
+  'Change language Alt+Shift',
+  'or special key on v-keyboard.'
+]
+
+const MEMORY_FOR_CHECKER = [
+  '<h3 class="display__popup-title">Virtual keyboard</h3>',
+  '<p>App for Windows</p>',
+  '<p>Change language Alt+Shift</p>',
+  '<a href="https://rolling-scopes-school.github.io/checklist/">Чек-лист для проверки...</a>'
 ]
 
 export default class {
   constructor () {
+    this.display = document.createElement('div');
     this.textOut = document.createElement('textarea');
     this.textOut.placeholder = PLACEHOLDER_TEXT.join('\n')
+
+    this.display.className = 'display';
+    this.textOut.className = 'display__textarea';
+    this.display.append(this.textOut);
 
     this.focus = this.focus.bind(this);
     this.outputKey = this.outputKey.bind(this);
@@ -19,11 +31,44 @@ export default class {
   }
 
   insert(parent) {
-    parent.append(this.textOut);
+    parent.append(this.display);
   }
 
   focus() {
     this.textOut.focus();
+  }
+
+  popUpInfo() {
+    const popUpOverlay = document.createElement('div');
+    const popUpScreen = document.createElement('div');
+    const popUpButton = document.createElement('button');
+
+    popUpOverlay.className = 'display__popup-overlay';
+    popUpScreen.className = 'display__popup';
+    popUpButton.className = 'display__button';
+    popUpButton.type = 'button';
+
+    popUpScreen.innerHTML = MEMORY_FOR_CHECKER.join('');
+    popUpButton.innerText = 'ok';
+    popUpScreen.append(popUpButton);
+    popUpOverlay.append(popUpScreen);
+
+    const closePopUp = (event) => {
+      const target = event.target;
+      const isOverlay = target.classList.contains('display__popup-overlay');
+      const isButton = target.classList.contains('display__button');
+
+      if (isOverlay || isButton) {
+        popUpOverlay.removeEventListener('click', closePopUp);
+        popUpScreen.remove();
+        popUpButton.remove();
+        popUpOverlay.remove();
+      }
+    }
+
+    this.display.append(popUpOverlay);
+    popUpOverlay.addEventListener('click', closePopUp);
+
   }
 
   controlKeyOperation(code) {
@@ -41,10 +86,6 @@ export default class {
         checkPosition -= stringTextArr[index].length + 1;
         index++;
       }
-
-      // if (!this.isCursorMoving && checkPosition === stringTextArr[index].length) {
-      //   this.isCursorInEndOfLine = true;
-      // }
 
       if (direct === 'up') {
         if (index === 0) {
@@ -171,6 +212,9 @@ export default class {
 
         this.isCursorMoving = false;
         this.isCursorInEndOfLine = false;
+      },
+      metaleft: () => {
+        this.popUpInfo();
       }
     }
 
