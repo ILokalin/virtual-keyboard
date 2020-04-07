@@ -14,9 +14,11 @@
     &::placeholder {
       padding-top: 20px;
       font-size: 24px;
-      color: rgba(68, 70, 73, 0.424);
+      color: #3c3c3c;
       text-align: center;
       line-height: 36px;
+      opacity: 0.4;
+      transition: 0.5;
     }
   }
   
