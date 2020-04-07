@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server --env development",
     "dev": "webpack --env development",
-    "build": "webpack --env production"
+    "build": "webpack --env production",
+    "gh-pages": "gh-pages -d build"
   },
   "keywords": [],
   "author": "",
@@ -36,6 +37,7 @@
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
+    "gh-pages": "^2.2.0",
     "webpack-dev-server": "^3.8.1"
   }
 }
