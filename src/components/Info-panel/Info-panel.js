@@ -1,6 +1,6 @@
 const CAPS_LOCK = '<p class="panel__caps">Caps Lock<span class="panel__caps-led"></span></p>',
       LANGUAGE  = '<p class="panel__lang">Language<span class="panel__lang-led"></span></p>',
-      INSTRUCTION = '<p class="panel__instruction">Please use Alt+Shift for change language.</p>';
+      INSTRUCTION = '<p class="panel__instruction">Please use Alt+Shift for change language</p>';
 
 export default class {
   constructor (propsObject) {
