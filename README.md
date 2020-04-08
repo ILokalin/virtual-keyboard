@@ -1,5 +1,13 @@
 # Virtual keyboard
 
+
+### Structure of repo
+
+This repository have branches:
+- master
+- keyborad
+- gh-page
+
 ### Demo
 
 Link for demo: [virtual keyboard](https://ilokalin.github.io/virtual-keyboard/)
@@ -36,4 +44,5 @@ Features
 - In Russia layout Wondows generate specifical events for left Control when pressed right Alt
 
 ### Автор
+
 - [Ilya Lokain](https://github.com/ILokalin)
