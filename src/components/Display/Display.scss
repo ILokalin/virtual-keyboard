@@ -1,0 +1,54 @@
+.display {
+  width: 100%;
+
+  &__textarea {
+    box-sizing: border-box;
+    outline: none;
+    border-radius: 10px;
+    padding: 15px;
+    width: 100%;
+    height: calc(100vh - 500px);
+    min-height: 200px;
+    resize: none;
+  
+    &::placeholder {
+      transition: 0.5;
+      opacity: 0.4;
+      padding-top: 20px;
+      text-align: center;
+      line-height: 36px;
+      color: #3c3c3c;
+      font-size: 24px;
+    }
+  }
+  
+  &__popup-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 10px;
+    background-color: rgba(78, 79, 87, 0.2);
+  }
+
+  &__popup {
+    margin: 50px auto;
+    border-radius: 12px;
+    background-color: white;
+    padding: 40px;
+    width: 300px;
+  }
+
+  &__button {
+    display: block;
+    margin: 35px auto 0;
+    outline: none;
+    border: 2px solid grey;
+    border-radius: 12px;
+    box-shadow: none;
+    background: none;
+    cursor: pointer;
+    padding: 6px 35px;
+  }
+}

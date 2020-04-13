@@ -1,5 +1,6 @@
 # Virtual keyboard
 
+
 ### Structure of repo
 
 This repository have branches:
@@ -43,4 +44,5 @@ Features
 - In Russia layout Wondows generate specifical events for left Control when pressed right Alt
 
 ### Автор
+
 - [Ilya Lokain](https://github.com/ILokalin)

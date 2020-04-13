@@ -1,8 +1,8 @@
 module.exports = function() {
-    return {
-        devServer: {
-            stats: 'errors-only',
-            open: true
-        }
-    };
+  return {
+    devServer: {
+      stats: 'errors-only',
+      open: true
+    }
+  };
 };
